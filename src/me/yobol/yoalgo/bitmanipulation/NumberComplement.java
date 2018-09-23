@@ -1,5 +1,7 @@
 package me.yobol.yoalgo.bitmanipulation;
 
+import java.math.BigInteger;
+
 /**
  * Description:
  * Given a positive integer, output its complement number. The complement strategy is to flip the bits of its binary representation.
@@ -19,12 +21,21 @@ package me.yobol.yoalgo.bitmanipulation;
  */
 public class NumberComplement {
 
-    private int findComplement(int num){
-        return num;
+    private int findComplement1(int num){
+        int i = 0;
+        while (i < num){
+            i <<= 1;
+            i |= 1;
+        }
+        return i - num;
+    }
+
+    private int findComplement2(int num){
+        return ~num & ((Integer.highestOneBit(num) << 1) - 1);
     }
 
     public static void main(String[] args){
         NumberComplement nc = new NumberComplement();
-        System.out.print(nc.findComplement(5));
+        System.out.print(nc.findComplement1(5));
     }
 }
