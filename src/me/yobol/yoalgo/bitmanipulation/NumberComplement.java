@@ -31,11 +31,15 @@ public class NumberComplement {
     }
 
     private int findComplement2(int num){
-        return ~num & ((Integer.highestOneBit(num) << 1) - 1);
+        System.out.println(Integer.toBinaryString(Integer.highestOneBit(num)));
+        System.out.println(Integer.toBinaryString(Integer.highestOneBit(num) << 1));
+        System.out.println(Integer.toBinaryString((Integer.highestOneBit(num) << 1) - 1));
+        System.out.println(Integer.toBinaryString((Integer.highestOneBit(num) << 1) - 1 - num));
+        return (Integer.highestOneBit(num) << 1) - 1 - num;
     }
 
     public static void main(String[] args){
         NumberComplement nc = new NumberComplement();
-        System.out.print(nc.findComplement1(5));
+        System.out.print(nc.findComplement2(5));
     }
 }
