@@ -17,23 +17,21 @@ package me.yobol.yoalgo.math;
 public class LargestTriangleArea {
 
     public double largestTriangleArea(int[][] points) {
-        double area = 0;
-        for (int x = 0; x < points.length; x++) {
-            for (int y = 1; y < points.length; y++) {
-                if (x == y) break;
-                double a = Math.sqrt(Math.pow(points[x][0] - points[y][0], 2) + Math.pow(points[x][1] - points[y][1], 2));
-                for (int z = 2; z < points.length; z++) {
-                    if (x == z || y == z) break;
-                    double b = Math.sqrt(Math.pow(points[x][0] - points[z][0], 2) + Math.pow(points[x][1] - points[z][1], 2));
-                    double c = Math.sqrt(Math.pow(points[y][0] - points[z][0], 2) + Math.pow(points[y][1] - points[z][1], 2));
-                    if (a + b > c || a + c > b || b + c > a) {
-                        area = 0.5 * a * b * Math.sin(c);
-                    }
+        double maxArea = 0;
+        for (int x = 0; x < points.length - 2; x++) {
+            for (int y = x + 1; y < points.length - 1; y++) {
+                for (int z = y + 1; z < points.length; z++) {
+                    maxArea = Math.max(maxArea, areaCal(points[x], points[y], points[z]));
                 }
             }
         }
-        return area;
+        return maxArea;
     }
+
+    private double areaCal(int[] pt1, int[] pt2, int[] pt3) {
+        return Math.abs(pt1[0] * (pt2[1] - pt3[1]) + pt2[0] * (pt3[1] - pt1[1]) + pt3[0] * (pt1[1] - pt2[1])) / 2.0;
+    }
+
 
     public static void main(String[] args) {
         LargestTriangleArea lta = new LargestTriangleArea();
