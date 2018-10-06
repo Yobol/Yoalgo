@@ -1,15 +1,17 @@
 package me.yobol.yoalgo.stack;
 
+import java.util.Stack;
+
 /**
  * Description:
  * Evaluate the value of an arithmetic expression in Reverse Polish Notation.
  * Valid operators are +, -, *, /. Each operand may be an integer or another expression.
- *
+ * <p>
  * Note:
  * Division between two integers should truncate toward zero.
  * The given RPN expression is always valid.
  * That means the expression would always evaluate to a result and there won't be any divide by zero operation.
- *
+ * <p>
  * Example 1:
  * Input: ["2", "1", "+", "3", "*"]
  * Output: 9
@@ -31,12 +33,52 @@ package me.yobol.yoalgo.stack;
  * = 22
  */
 public class EvaluateReversePolishNotation {
+
     public int evalRPN(String[] tokens) {
+        Stack<Integer> stack = new Stack<>();
+        int index = 0;
+        while (index != tokens.length) {
+            String temp = tokens[index++];
+            if (!isOperator(temp)) {
+                stack.push(Integer.parseInt(temp));
+            } else {
+                Integer op2 = stack.pop(), op1 = stack.pop();
+                stack.push(evaluate(temp, op1, op2));
+            }
+        }
+        return stack.pop();
+    }
+
+    private boolean isOperator(String token) {
+        return token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/");
+    }
+
+    private int evaluate(String operator, Integer op1, Integer op2) {
         int result = 0;
+        switch (operator) {
+            case "+":
+                result = op1 + op2;
+                break;
+            case "-":
+                result = op1 - op2;
+                break;
+            case "*":
+                result = op1 * op2;
+                break;
+            case "/":
+                result = op1 / op2;
+                break;
+        }
         return result;
     }
 
     public static void main(String[] args) {
-
+        EvaluateReversePolishNotation erpn = new EvaluateReversePolishNotation();
+        String[] tokens = new String[]{"2", "1", "+", "3", "*"};
+        System.out.println(erpn.evalRPN(tokens)); //9
+        tokens = new String[]{"4", "13", "5", "/", "+"};
+        System.out.println(erpn.evalRPN(tokens)); //6
+        tokens = new String[]{"10", "6", "9", "3", "+", "-11", "*", "/", "*", "17", "+", "5", "+"};
+        System.out.println(erpn.evalRPN(tokens)); //22
     }
 }
