@@ -60,7 +60,7 @@ public class SortSolution {
             }
         }
         if (low > start)
-            quickSortHelper(a, start, low);
+            quickSortHelper(a, start, low - 1);
         if (high < end)
             quickSortHelper(a, low + 1 ,end);
 
