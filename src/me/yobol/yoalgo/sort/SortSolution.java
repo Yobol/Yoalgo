@@ -39,6 +39,33 @@ public class SortSolution {
         return a;
     }
 
+    public static int[] quickSort(int[] a) {
+        quickSortHelper(a, 0, a.length - 1);
+        return a;
+    }
+
+    private static void quickSortHelper(int[] a, int start, int end) {
+        int low = start, high = end, pivot = a[start];
+
+        while (low < high) {
+            while (low < high && a[high] >= pivot) high--;
+            if (low < high) {
+                swap(a, low, high);
+                low++;
+            }
+            while (low <high && a[low] <= pivot) low++;
+            if (low < high) {
+                swap(a, low, high);
+                high--;
+            }
+        }
+        if (low > start)
+            quickSortHelper(a, start, low);
+        if (high < end)
+            quickSortHelper(a, low + 1 ,end);
+
+    }
+
     public static boolean validate(int[] a) {
         for (int i = 0;i < a.length - 1;i++) {
             if (a[i] > a[i + 1]) {
@@ -55,6 +82,14 @@ public class SortSolution {
             System.out.println("error");
         } else {
             System.out.println(Arrays.toString(a));
+        }
+
+        int[] b = {12, 15, 6, 7, 4};
+        quickSort(b);
+        if (!validate(b)) {
+            System.out.println("error");
+        } else {
+            System.out.println(Arrays.toString(b));
         }
     }
 }
