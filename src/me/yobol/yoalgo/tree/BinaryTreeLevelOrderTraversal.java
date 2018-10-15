@@ -64,12 +64,21 @@ public class BinaryTreeLevelOrderTraversal {
 
         List<List<Integer>> outer = btlot.levelOrder(t1);
         System.out.println("[");
+        int outerSize = outer.size();
         for (List<Integer> inner : outer) {
-            System.out.print("[");
+            int innerSize = inner.size();
+            System.out.print("\t[");
             for (Integer i : inner) {
-                System.out.print(i + ",");
+                System.out.print(i);
+                if (--innerSize > 0)
+                    System.out.print(",");
             }
-            System.out.println("],");
+            System.out.print("]");
+            if (--outerSize > 0){
+                System.out.println(",");
+            }else {
+                System.out.println();
+            }
         }
         System.out.println("]");
     }
