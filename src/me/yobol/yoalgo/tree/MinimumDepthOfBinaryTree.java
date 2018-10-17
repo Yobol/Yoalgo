@@ -2,6 +2,9 @@ package me.yobol.yoalgo.tree;
 
 import me.yobol.yoalgo.basic.TreeNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Description:
  * Given a binary tree, find its minimum depth.
@@ -29,6 +32,32 @@ public class MinimumDepthOfBinaryTree {
         return minDepthHelper(root);
     }
 
+    /**
+     * do level order reversal,
+     * maintain  the height of each node,
+     * and return the height when we get the first leaf node
+     */
+    public int minDepthBFS(TreeNode root) {
+        if (root == null) return 0;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        int level = 1;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0;i < size;i++) {
+                TreeNode temp = queue.poll();
+                if (temp.left == null && temp.right == null) return level;
+                if (temp.left != null) queue.add(temp.left);
+                if (temp.right != null) queue.add(temp.right);
+            }
+            level++;
+        }
+
+        return level;
+    }
+
 
     public static void main(String[] args) {
         MinimumDepthOfBinaryTree mdobt = new MinimumDepthOfBinaryTree();
@@ -39,6 +68,6 @@ public class MinimumDepthOfBinaryTree {
         t1.right.left = new TreeNode(15);
         t1.right.right = new TreeNode(7);
 
-        System.out.println(mdobt.minDepth(t1));
+        System.out.println(mdobt.minDepthBFS(t1));
     }
 }
