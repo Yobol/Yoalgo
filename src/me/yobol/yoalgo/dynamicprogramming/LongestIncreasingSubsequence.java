@@ -15,10 +15,6 @@ public class LongestIncreasingSubsequence {
         }
         int[] dp = new int[nums.length];
         dp[0] = 1;
-        for (int k = 0; k < dp.length; k++) {
-            System.out.print(dp[k] + " ");
-        }
-        System.out.println();
         // maxlen is used to save the length of LIS of the entire sequence.
         int maxlen = 1;
         for (int i = 1;i < dp.length;i++) {
