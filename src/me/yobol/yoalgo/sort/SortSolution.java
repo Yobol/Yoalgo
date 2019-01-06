@@ -40,6 +40,22 @@ public class SortSolution {
         }
     }
 
+    private static void binarySearchSort(int[] a) {
+
+        for (int i = 1; i < a.length; i++) {
+            int cur = a[i];
+            int k = Arrays.binarySearch(a, 0, i, cur);
+            // 如果要查找的key不存在，则返回-(k + 1) < 0，那么k = -k - 1
+            if (k < 0) {
+                k = - k - 1;
+            }
+            for (int j = i; j > k; j--) {
+                a[j] = a[j - 1];
+            }
+            a[k] = cur;
+        }
+    }
+
     /**
      * 每次都从待排序的元素中选出最小/大的元素，放到已排序元素的后面
      * select the smallest/biggest element from the elements to be sorted every time，and put it after the sorted elements
@@ -95,6 +111,14 @@ public class SortSolution {
             System.out.println("error");
         } else {
             System.out.println(Arrays.toString(a));
+        }
+
+        int[] a1 = {8, 3, 2, 5, 9, 1, 6};
+        binarySearchSort(a1);
+        if (validate(a1)) {
+            System.out.println("error");
+        } else {
+            System.out.println(Arrays.toString(a1));
         }
 
         int[] b = {1, 3, 5 , 6 , 7, 2, 8};
