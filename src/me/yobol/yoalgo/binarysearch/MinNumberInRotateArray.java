@@ -1,4 +1,4 @@
-package me.yobol.yoalgo.array;
+package me.yobol.yoalgo.binarysearch;
 
 
 /**

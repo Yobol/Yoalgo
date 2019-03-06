@@ -30,7 +30,7 @@ public class PeakIndexInMountainArray {
                 return peak;
             } else if (A[peak - 1] > A[peak]) {
                 high = peak - 1;
-            } else { // A[peak] < A[peak + 1]
+            } else { // A[peak] < A[peak + 1])
                 low = peak + 1;
             }
         }
