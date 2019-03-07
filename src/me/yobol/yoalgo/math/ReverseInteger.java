@@ -28,7 +28,7 @@ public class ReverseInteger {
      * @param x  a int value to be reversed
      * @return the reversed value of the input
      */
-    public int reverse(int x) {
+    public int reverse1(int x) {
         long resultant = 0;
         //int sign = x >= 0 ? 1 : -1;
         //x = Math.abs(x);
@@ -41,15 +41,27 @@ public class ReverseInteger {
         return (int)resultant;
     }
 
+    public int reverse2(int x) {
+        int rev = 0;
+        while (x != 0) {
+            int pop = x % 10;
+            x /= 10;
+            if (rev > Integer.MAX_VALUE/10 || (rev == Integer.MAX_VALUE / 10 && pop > 7)) return 0;
+            if (rev < Integer.MIN_VALUE/10 || (rev == Integer.MIN_VALUE / 10 && pop < -8)) return 0;
+            rev = rev * 10 + pop;
+        }
+        return rev;
+    }
+
     public static void main(String[] args) {
         ReverseInteger ri = new ReverseInteger();
         int a = 123;
-        System.out.println(ri.reverse(a));
+        System.out.println(ri.reverse1(a));
         int b = -123;
-        System.out.println(ri.reverse(b));
+        System.out.println(ri.reverse1(b));
         int c = 0;
-        System.out.println(ri.reverse(c));
+        System.out.println(ri.reverse1(c));
         int d = 1534236469;
-        System.out.println(ri.reverse(d));
+        System.out.println(ri.reverse1(d));
     }
 }
